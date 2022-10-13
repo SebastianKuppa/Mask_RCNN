@@ -13,3 +13,4 @@ COCO_INSTANCE_CATEGORY_NAMES = \
         'microwave', 'oven', 'toaster', 'sink', 'refrigerator', 'N/A', 'book',
         'clock', 'vase', 'scissors', 'teddy bear', 'hair drier', 'toothbrush'
     ]
+# test
