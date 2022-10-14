@@ -30,4 +30,20 @@ def get_outputs(image, model, threshold):
 
         return masks, boxes, labels
 
-# print(f"{COLORS}")
+
+def draw_segmentation_map(image, masks, boxes, labels):
+    alpha = 1
+    # transparency param
+    beta = .6
+    gamma = 0
+
+    for i in range(len(masks)):
+        red_map = np.zeros_like(masks[i]).astype(np.int8)
+        green_map = np.zeros_like(masks[i]).astype(np.int8)
+        blue_map = np.zeros_like(masks[i]).astype(np.int8)
+        # apply rnd color to mask
+        color = COLORS[random.randrange(0, len(COLORS))]
+        red_map[masks[i] == 1], green_map[masks[i] == 1], blue_map[masks[i] == 1] = color
+        # combine masks into single image
+        segmentation_map = np.stack([red_map, green_map, blue_map], axis=2)
+
