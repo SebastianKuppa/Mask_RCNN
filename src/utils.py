@@ -46,4 +46,15 @@ def draw_segmentation_map(image, masks, boxes, labels):
         red_map[masks[i] == 1], green_map[masks[i] == 1], blue_map[masks[i] == 1] = color
         # combine masks into single image
         segmentation_map = np.stack([red_map, green_map, blue_map], axis=2)
-
+        # convert PIL to np array
+        image = np.array(image)
+        # RGN to BGR format
+        image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
+        # apply mask to img
+        cv2.addWeighted(image, alpha, segmentation_map, beta, gamma, image)
+        # draw bounding boxes
+        cv2.rectangle(image, boxes[i][0], boxes[i][1], color=color, thickness=2)
+        # add text to rechtangle
+        cv2.text(image, labels[i], (boxes[i][0][0], boxes[i][0][1]-10), cv2.FONT_HERSHEY_SIMPLEX,
+                 1, color, thickness=2, lineType=cv2.LINE_AA)
+    return image
