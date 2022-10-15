@@ -49,9 +49,9 @@ def draw_segmentation_map(image, masks, boxes, labels):
         # convert PIL to np array
         image = np.array(image)
         # RGN to BGR format
-        image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
+        image = cv2.cvtColor(image[0], cv2.COLOR_RGB2BGR)
         # apply mask to img
-        cv2.addWeighted(image, alpha, segmentation_map, beta, gamma, image)
+        cv2.addWeighted(image, alpha, segmentation_map, beta, gamma)
         # draw bounding boxes
         cv2.rectangle(image, boxes[i][0], boxes[i][1], color=color, thickness=2)
         # add text to rechtangle

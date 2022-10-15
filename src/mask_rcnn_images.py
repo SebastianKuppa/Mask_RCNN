@@ -28,7 +28,7 @@ transform = transforms.Compose([
     transforms.ToTensor()
 ])
 
-image_path = args['--input']
+image_path = args['input']
 image = Image.open(image_path).convert('RGB')
 # keep original image for opencv operations
 orig_image = image.copy()
