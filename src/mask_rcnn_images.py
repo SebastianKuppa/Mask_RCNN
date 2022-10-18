@@ -46,5 +46,5 @@ cv2.imshow('Segmented image', result)
 cv2.waitKey(0)
 
 # set savePath
-save_path = f"../outputs/{args['--input'].split('/')[-1].split('.')[0]}.jpg"
+save_path = f"../outputs/{args['input'].split('/')[-1].split('.')[0]}.jpg"
 cv2.imwrite(save_path, result)
