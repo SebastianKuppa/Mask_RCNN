@@ -38,9 +38,9 @@ def draw_segmentation_map(image, masks, boxes, labels):
     gamma = 0
 
     for i in range(len(masks)):
-        red_map = np.zeros_like(masks[i]).astype(np.int8)
-        green_map = np.zeros_like(masks[i]).astype(np.int8)
-        blue_map = np.zeros_like(masks[i]).astype(np.int8)
+        red_map = np.zeros_like(masks[i]).astype(np.uint8)
+        green_map = np.zeros_like(masks[i]).astype(np.uint8)
+        blue_map = np.zeros_like(masks[i]).astype(np.uint8)
         # apply rnd color to mask
         color = COLORS[random.randrange(0, len(COLORS))]
         red_map[masks[i] == 1], green_map[masks[i] == 1], blue_map[masks[i] == 1] = color
@@ -48,13 +48,13 @@ def draw_segmentation_map(image, masks, boxes, labels):
         segmentation_map = np.stack([red_map, green_map, blue_map], axis=2)
         # convert PIL to np array
         image = np.array(image)
-        # RGN to BGR format
-        image = cv2.cvtColor(image[0], cv2.COLOR_RGB2BGR)
+        # RGB to BGR format
+        image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
         # apply mask to img
-        cv2.addWeighted(image, alpha, segmentation_map, beta, gamma)
+        cv2.addWeighted(image, alpha, segmentation_map, beta, gamma, image)
         # draw bounding boxes
         cv2.rectangle(image, boxes[i][0], boxes[i][1], color=color, thickness=2)
         # add text to rechtangle
-        cv2.text(image, labels[i], (boxes[i][0][0], boxes[i][0][1]-10), cv2.FONT_HERSHEY_SIMPLEX,
+        cv2.putText(image, labels[i], (boxes[i][0][0], boxes[i][0][1]-10), cv2.FONT_HERSHEY_SIMPLEX,
                  1, color, thickness=2, lineType=cv2.LINE_AA)
     return image

@@ -39,7 +39,7 @@ image = image.unsqueeze(0).to(device)
 
 masks, boxes, labels = get_outputs(image, model, args['threshold'])
 
-result = draw_segmentation_map(image, masks, boxes, labels)
+result = draw_segmentation_map(orig_image, masks, boxes, labels)
 
 # visualize image
 cv2.imshow('Segmented image', result)
